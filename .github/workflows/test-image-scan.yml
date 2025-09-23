@@ -26,6 +26,8 @@ jobs:
         env:
           REGISTRY_AZURE_USERNAME: ${{ secrets.REGISTRY_AZURE_USERNAME }}
           REGISTRY_AZURE_PASSWORD: ${{ secrets.REGISTRY_AZURE_PASSWORD }}
+          # GREATER THAN ONE
+          BLOCK_ON_CRITICAL: 1
 
   scan-gcp:
     name: Scan GCP Artifact Registry Image
@@ -38,6 +40,8 @@ jobs:
           auth-token: ${{ secrets.AUTH_TOKEN }}
         env:
           BASE64_GOOGLE_CREDENTIALS: ${{ secrets.BASE64_GOOGLE_CREDENTIALS }}
+          # BLOCK IF SECRETS IS > 0
+          BLOCK_ON_SECRET: 0
 
   scan-aws:
     name: Scan AWS ECR Image
