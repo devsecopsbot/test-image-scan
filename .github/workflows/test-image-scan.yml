@@ -8,37 +8,36 @@ jobs:
     name: Scan Public Image
     runs-on: ubuntu-latest
     steps:
-      - uses: devsecopsbot/image-scan@v0.0.1
+      - uses: devsecopsbot/image-scan@main
         with:
           image: nginx:latest
-        env:
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          POST_URL: ${{ secrets.POST_URL }}
-         
+          post-url: ${{ secrets.POST_URL }}
+          auth-token: ${{ secrets.AUTH_TOKEN }}
+
   scan-azure:
     name: Scan Azure ACR Image
     runs-on: ubuntu-latest
     steps:
-      - uses: devsecopsbot/image-scan@v1
+      - uses: devsecopsbot/image-scan@main
         with:
-          image: devsecopsbot.azurecr.io/web-dvwa:lates
+          image: devsecopsbot.azurecr.io/web-dvwa:latest
+          post-url: ${{ secrets.POST_URL }}
+          auth-token: ${{ secrets.AUTH_TOKEN }}
         env:
           REGISTRY_AZURE_USERNAME: ${{ secrets.REGISTRY_AZURE_USERNAME }}
           REGISTRY_AZURE_PASSWORD: ${{ secrets.REGISTRY_AZURE_PASSWORD }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          POST_URL: ${{ secrets.POST_URL }}
 
   scan-gcp:
     name: Scan GCP Artifact Registry Image
     runs-on: ubuntu-latest
     steps:
-      - uses: devsecopsbot/image-scan@v1
+      - uses: devsecopsbot/image-scan@main
         with:
           image: gcr.io/fast-gate-471512-v4/web-dvwa:latest_gcp
+          post-url: ${{ secrets.POST_URL }}
+          auth-token: ${{ secrets.AUTH_TOKEN }}
         env:
           BASE64_GOOGLE_CREDENTIALS: ${{ secrets.BASE64_GOOGLE_CREDENTIALS }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          POST_URL: ${{ secrets.POST_URL }}
 
   scan-aws:
     name: Scan AWS ECR Image
@@ -49,12 +48,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-          
 
-      - uses: devsecopsbot/image-scan@v1
+      - uses: devsecopsbot/image-scan@main
         with:
           image: 836217041525.dkr.ecr.us-east-1.amazonaws.com/devsecops-demo:vulnerables_web-dvwa_latest
-        env:
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-          POST_URL: ${{ secrets.POST_URL }}
-          
+          post-url: ${{ secrets.POST_URL }}
+          auth-token: ${{ secrets.AUTH_TOKEN }}
