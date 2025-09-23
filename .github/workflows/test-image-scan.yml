@@ -8,7 +8,7 @@ jobs:
     name: Scan Public Image
     runs-on: ubuntu-latest
     steps:
-      - uses: devsecopsbot/image-scan@v1
+      - uses: devsecopsbot/image-scan@v0.0.1
         with:
           image: nginx:latest
         env:
