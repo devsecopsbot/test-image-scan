@@ -13,6 +13,7 @@ jobs:
           image: nginx:latest
           post-url: ${{ secrets.POST_URL }}
           auth-token: ${{ secrets.AUTH_TOKEN }}
+          server-token: ${{ secrets.SERVER_TOKEN }}
 
   scan-azure:
     name: Scan Azure ACR Image
@@ -23,6 +24,7 @@ jobs:
           image: devsecopsbot.azurecr.io/web-dvwa:latest
           post-url: ${{ secrets.POST_URL }}
           auth-token: ${{ secrets.AUTH_TOKEN }}
+          server-token: ${{ secrets.SERVER_TOKEN }}
           block-on-critical: 0
         env:
           REGISTRY_AZURE_USERNAME: ${{ secrets.REGISTRY_AZURE_USERNAME }}
@@ -38,6 +40,7 @@ jobs:
           image: gcr.io/fast-gate-471512-v4/web-dvwa:latest_gcp
           post-url: ${{ secrets.POST_URL }}
           auth-token: ${{ secrets.AUTH_TOKEN }}
+          server-token: ${{ secrets.SERVER_TOKEN }}
           block-on-secrets: true
         env:
           BASE64_GOOGLE_CREDENTIALS: ${{ secrets.BASE64_GOOGLE_CREDENTIALS }}
@@ -53,6 +56,7 @@ jobs:
           image: 836217041525.dkr.ecr.us-east-1.amazonaws.com/devsecops-demo:vulnerables_web-dvwa_latest
           post-url: ${{ secrets.POST_URL }}
           auth-token: ${{ secrets.AUTH_TOKEN }}
+          server-token: ${{ secrets.SERVER_TOKEN }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
