@@ -1,3 +1,0 @@
-Flask==0.12   # known vulnerable
-requests==2.19.0  # outdated
-PyYAML==4.1  
