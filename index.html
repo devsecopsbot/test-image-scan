@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Security and Governance for Laptops</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='6' y='10' width='36' height='24' rx='4' fill='none' stroke='%23000' stroke-width='3'/%3E%3Cpath d='M10 38h28' stroke='%23000' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Line Awesome (for OS / Chrome icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind config FIRST, then Tailwind CDN -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: { extend: { fontFamily: { inter: ['Inter','ui-sans-serif','system-ui'] } } }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html, body { height: 100%; }
+    body { font-family: 'Inter', sans-serif; }
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    body:not(.js-ready) .reveal { opacity: 1; transform: none; }
+    .expand { width: 0; transition: width 1.1s ease-out; }
+    .motion-degraded::after { position: fixed; right: 12px; bottom: 12px; z-index: 50; font-size: 12px; padding: 6px 10px; border-radius: 10px; background: rgba(17,17,17,.7); color: #fff; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .motion-degraded.show-hint::after { opacity: 1; }
+    .icon { display:inline-block; width: 24px; height: 24px; color:#000; }
+    .icon-lg { width: 28px; height: 28px; }
+    .icon-xl { width: 40px; height: 40px; }
+    .la-fw { width: 1.25em; text-align: center; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 motion-degraded">
+  <!-- Top Nav -->
+  <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-100">
+    <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="icon-xl" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="10" width="36" height="28" rx="6" stroke="currentColor" stroke-width="2"/><path d="M14 34h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_50%_at_50%_-10%,#f3f4f6,transparent)]"></div>
+    <div class="mx-auto max-w-6xl px-6 py-24 text-center relative z-10">
+      <h1 class="reveal text-7xl md:text-8xl font-extrabold tracking-tight">
+        <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-600 to-gray-400">
+          Laptop Bot
+          <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000 rounded-md"></span>
+        </span>
+      </h1>
+      <p class="reveal mt-2 text-gray-800 text-2xl md:text-3xl font-medium">AI Security and Governance for laptops</p>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <button class="px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black">Get Early Access</button>
+        <button class="px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-300">See How It Works</button>
+      </div>
+
+      <!-- Supported OS strip (Line Awesome icons) -->
+      <div class="reveal mt-6 flex items-center justify-center gap-6 text-sm text-gray-600">
+        <span class="flex items-center gap-2"><i class="lab la-apple la-lg"></i>macOS</span>
+        <span class="flex items-center gap-2"><i class="lab la-windows la-lg"></i>Windows</span>
+        <span class="flex items-center gap-2"><i class="lab la-ubuntu la-lg"></i>Linux</span>
+      </div>
+
+      <!-- Compliance badges row -->
+      <div class="reveal mt-12 grid sm:grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="flex items-center justify-center gap-2.5 rounded-xl border border-gray-100 bg-white py-2">
+          <!-- EU flag mini -->
+          <svg width="16" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="24" height="16" rx="2" fill="#1E3A8A"/>
+            <g fill="#FBBF24" transform="translate(12 8)">
+              <g id="s" transform="rotate(18)"><circle r=".9" transform="translate(0,-5.5)"/></g>
+              <use href="#s" transform="rotate(36)"/><use href="#s" transform="rotate(72)"/>
+              <use href="#s" transform="rotate(108)"/><use href="#s" transform="rotate(144)"/>
+              <use href="#s" transform="rotate(180)"/><use href="#s" transform="rotate(216)"/>
+              <use href="#s" transform="rotate(252)"/><use href="#s" transform="rotate(288)"/>
+              <use href="#s" transform="rotate(324)"/>
+            </g>
+          </svg>
+          <span class="text-sm font-semibold tracking-wide">EU AI Act</span>
+        </div>
+        <div class="flex items-center justify-center gap-2.5 rounded-xl border border-gray-100 bg-white py-2">
+          <!-- NIST/SAIF badge -->
+          <svg width="20" height="16" viewBox="0 0 84 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" focusable="false">
+  <rect x="0.5" y="0.5" width="83" height="31" rx="4" fill="#111" stroke="#111"/>
+  <rect x="10" y="8" width="64" height="4" fill="#fff"/>
+  <rect x="10" y="14" width="48" height="4" fill="#fff"/>
+  <rect x="10" y="20" width="56" height="4" fill="#fff"/>
+</svg>
+          <span class="text-sm font-semibold tracking-wide">NIST AI RMF / SAIF</span>
+        </div>
+        <div class="flex items-center justify-center gap-2.5 rounded-xl border border-gray-100 bg-white py-2">
+          <!-- ISO globe -->
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="black" stroke-width="1.7">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a20 20 0 000 18M12 3a20 20 0 010 18"/>
+          </svg>
+          <span class="text-sm font-semibold tracking-wide">ISO/IEC 42001</span>
+        </div>
+        <div class="flex items-center justify-center gap-2.5 rounded-xl border border-gray-100 bg-white py-2">
+          <!-- India flag mini -->
+          <svg width="16" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="24" height="16" rx="2" fill="#F59E0B"/>
+            <rect y="5.33" width="24" height="5.34" fill="#FFFFFF"/>
+            <rect y="10.67" width="24" height="5.33" fill="#16A34A"/>
+            <circle cx="12" cy="8" r="2" fill="#1D4ED8"/>
+          </svg>
+          <span class="text-sm font-semibold tracking-wide">India AI Guidelines</span>
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-x-0 -bottom-24 h-64 bg-gradient-to-t from-gray-50 to-transparent"></div>
+  </section>
+
+  <!-- Agent + Extension summary cards -->
+  <section id="agent" class="mx-auto max-w-6xl px-6 py-6">
+    <div class="grid md:grid-cols-2 gap-14 items-start">
+      <div class="reveal bg-gray-50 rounded-3xl p-10 shadow-sm">
+        <div class="flex items-center gap-2">
+          <!-- OS Agent icon -->
+          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2l7 3v6c0 5.25-3.5 8.5-7 9-3.5-.5-7-3.75-7-9V5l7-3z" stroke="currentColor" stroke-width="1.75" fill="none"/>
+            <circle cx="8" cy="11" r="1" fill="currentColor"/><circle cx="12" cy="9" r="1" fill="currentColor"/><circle cx="16" cy="13" r="1" fill="currentColor"/>
+            <path d="M8 11l4-2m0 0l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <h3 class="text-3xl font-semibold">OS Agent</h3>
+        </div>
+        <p class="mt-4 text-gray-600 text-lg">Native, low-overhead protection for macOS and Windows.</p>
+
+        <!-- OS badges (Line Awesome) -->
+        <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-600">
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white"><i class="lab la-apple la-fw"></i> macOS</span>
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white"><i class="lab la-windows la-fw"></i> Windows</span>
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white"><i class="lab la-ubuntu la-fw"></i> Linux</span>
+        </div>
+
+        <ul class="mt-6 text-gray-700 space-y-2">
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Detects unsafe AI behavior</li>
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Kills or isolates rogue processes</li>
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Blocks unapproved tools and models</li>
+        </ul>
+        <p class="mt-6 text-sm text-gray-500">Private by design. No prompts or content leave the device.</p>
+      </div>
+
+      <div id="extension" class="reveal bg-gray-50 rounded-3xl p-10 shadow-sm">
+        <div class="flex items-center gap-2">
+          <!-- Browser icon -->
+          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75"/>
+            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 3a9 9 0 0 1 7.8 4.5H12" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4.2 8.5L8 15a6 6 0 0 0 4 2.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M12 21a9 9 0 0 0 7.8-12.5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <h3 class="text-3xl font-semibold">Browser Extension</h3>
+        </div>
+        <p class="mt-4 text-gray-600 text-lg">Protects AI in the browser.</p>
+
+        <!-- Browser badges: Chrome (LA), Comet & Atlas (custom glyphs) -->
+        <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-gray-600">
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white"><i class="lab la-chrome la-fw"></i> Chrome</span>
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white">
+            <!-- Comet glyph -->
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M3 12c6-4 10-6 18-9-3 8-5 12-9 18" />
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg> Comet
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200 bg-white">
+            <!-- Atlas glyph -->
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <circle cx="12" cy="12" r="8"/>
+              <path d="M4 12h16M12 4a16 16 0 0 0 0 16M12 4a16 16 0 0 1 0 16"/>
+            </svg> Atlas
+          </span>
+        </div>
+
+        <ul class="mt-6 text-gray-700 space-y-2">
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Detects prompt injection and hidden instructions</li>
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Warns on risky copy-paste before it reaches AI</li>
+          <li class="flex gap-3 items-start"><span class="mt-1">▸</span> Enforces policy for AI websites</li>
+        </ul>
+        <p class="mt-6 text-sm text-gray-500">One click to install. Always on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Section -->
+  <section id="coverage" class="mx-auto max-w-6xl px-6 py-10">
+    <div class="rounded-3xl border border-gray-100 p-8 bg-white shadow-sm hover:shadow-md transition-shadow">
+      <h3 class="text-3xl font-semibold text-center mb-8">AꞮ things that matter on a laptop</h3>
+      <div class="grid md:grid-cols-4 gap-6 text-gray-700">
+        <!-- rollback to previous lucide icons -->
+        <div class="rounded-2xl bg-gray-50 p-6 reveal">
+          <div class="flex items-center gap-2 mb-2"><i data-lucide="boxes" class="w-5 h-5"></i><span class="font-semibold">AI Apps</span></div>
+          <p class="text-sm text-gray-600">ChatGPT, Claude, Gemini, Perplexity, Cursor, DeepSeek, LM Studio, Ollama…</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-6 reveal">
+          <div class="flex items-center gap-2 mb-2"><i data-lucide="server" class="w-5 h-5"></i><span class="font-semibold">MCP Servers</span></div>
+          <p class="text-sm text-gray-600">Discovery of known servers, sockets, and manifests with policy control.</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-6 reveal">
+          <div class="flex items-center gap-2 mb-2"><i data-lucide="file-badge" class="w-5 h-5"></i><span class="font-semibold">Model Files</span></div>
+          <p class="text-sm text-gray-600">GGUF, safetensors, bin — integrity, origin, and execution controls.</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-6 reveal">
+          <div class="flex items-center gap-2 mb-2"><i data-lucide="globe" class="w-5 h-5"></i><span class="font-semibold">Browsers</span></div>
+          <p class="text-sm text-gray-600">Chat-based sites and new AI browsers like Comet &amp; Atlas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OS Protection Visual (media LEFT, trimmed & no OS chips) -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="rounded-3xl border border-gray-100 p-8 bg-white shadow-sm hover:shadow-md transition-shadow">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <!-- Media LEFT -->
+        <div class="reveal bg-gray-50 rounded-2xl border overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between px-4 h-12 border-b bg-white">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-yellow-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-green-400"></span>
+            </div>
+            <div class="text-xs text-gray-400">🛡️</div>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="h-3 w-3/4 rounded bg-white border"></div>
+            <div class="h-3 w-2/3 rounded bg-white border"></div>
+            <div class="h-3 w-1/2 rounded bg-white border"></div>
+            <!-- only ONE alert -->
+            <div class="mt-2 p-4 rounded-xl border bg-white flex items-start gap-3">
+              <i data-lucide="shield-off" class="w-5 h-5 text-red-500 mt-0.5"></i>
+              <div>
+                <p class="text-sm font-medium">Data exfiltration attempt blocked</p>
+                <p class="text-xs text-gray-600">Outbound POST to unknown AI API blocked by G2 · AI Network Control.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Text RIGHT -->
+        <div class="reveal">
+          <h4 class="text-2xl font-semibold mb-3">Your OS, now protected from AI</h4>
+          <p class="text-gray-600 mb-6">The agent watches processes, files, and network—so hidden instructions, shady model loads, and secret-stealing flows are stopped at the source.</p>
+          <ul class="text-gray-700 space-y-2">
+            <li class="flex gap-3 items-start"><i data-lucide="skull" class="w-5 h-5 mt-0.5"></i> Prompt-spawned scripts detected and terminated</li>
+            <li class="flex gap-3 items-start"><i data-lucide="network" class="w-5 h-5 mt-0.5"></i> Firewall isolation on risky AI destinations</li>
+            <li class="flex gap-3 items-start"><i data-lucide="file-check" class="w-5 h-5 mt-0.5"></i> Model &amp; config integrity checks (GGUF, safetensors)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dedicated Extension Visual (media RIGHT) — rollback to previous lucide icons -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="rounded-3xl border border-gray-100 p-8 bg-white shadow-sm hover:shadow-md transition-shadow">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="reveal">
+          <h4 class="text-2xl font-semibold mb-3">Your browser, now protected</h4>
+          <p class="text-gray-600 mb-6">The extension scans pages and clipboard to catch hidden instructions before they reach your AI tools.</p>
+          <ul class="text-gray-700 space-y-2">
+            <li class="flex gap-3 items-start"><i data-lucide="shield-check" class="w-5 h-5 text-green-600 mt-0.5"></i> Real-time prompt injection warnings</li>
+            <li class="flex gap-3 items-start"><i data-lucide="shield" class="w-5 h-5 text-green-600 mt-0.5"></i> Policy-based allow/deny for AI sites</li>
+            <li class="flex gap-3 items-start"><i data-lucide="bell" class="w-5 h-5 text-green-600 mt-0.5"></i> Gentle, contextual alerts for users</li>
+          </ul>
+        </div>
+        <div class="reveal bg-gray-50 rounded-2xl border overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between px-4 h-12 border-b bg-white">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-yellow-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-green-400"></span>
+            </div>
+            <div class="text-xs text-gray-500 px-3 py-1 rounded-full border">chat.openai.com</div>
+            <div class="text-xs text-gray-400">🔒</div>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="h-6 w-44 rounded bg-white border flex items-center gap-2 text-xs text-gray-500 px-3">▮ Prompt…</div>
+            <div class="h-3 w-3/4 rounded bg-white border"></div>
+            <div class="h-3 w-2/3 rounded bg-white border"></div>
+            <div class="h-3 w-1/2 rounded bg-white border"></div>
+            <div class="mt-4 p-4 rounded-xl border bg-white backdrop-blur-sm flex items-start gap-3">
+              <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500 mt-0.5"></i>
+              <div>
+                <p class="text-sm font-medium">Possible prompt injection blocked</p>
+                <p class="text-xs text-gray-600">Hidden instruction detected in copied text. The message was sanitized before submission.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Threats We Prevent — rollback to lucide -->
+  <section class="mx-auto max-w-6xl px-6 py-8">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="alert-triangle" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Prompt Injection</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Hidden instructions that hijack AI behavior.</p>
+      </div>
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="lock" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Data Exfiltration</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Untrusted APIs receiving your files or code.</p>
+      </div>
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="cpu" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Unauthorized Models</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Unverified or tampered local models.</p>
+      </div>
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="eye" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Malicious Extensions</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Add-ons injecting scripts into AI sessions.</p>
+      </div>
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="terminal" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Credential Theft</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Access to SSH keys, tokens, or .env.</p>
+      </div>
+      <div class="reveal rounded-3xl p-8 border border-gray-100 hover:shadow-md transition-shadow">
+        <i data-lucide="globe" class="w-8 h-8 text-gray-900 mb-4"></i>
+        <h4 class="font-semibold text-xl mb-1">Unapproved AI Sites</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">Sites and AI browsers outside policy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governance Demo — rollback to previous lucide in header -->
+  <section id="governance" class="mx-auto max-w-6xl px-6 py-24">
+    <h3 class="reveal text-4xl font-semibold text-center mb-3">Governance that makes sense</h3>
+    <p class="reveal text-gray-600 text-center max-w-2xl mx-auto mb-10">Simple, professional, and clear. One policy card with numbered controls and a compact heatmap.</p>
+    <p class="reveal text-gray-500 text-center max-w-2xl mx-auto -mt-6 mb-10 text-sm">Includes MCP coverage: servers, sockets, and manifests.</p>
+
+    <div class="rounded-3xl border border-gray-100 p-10 bg-white shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i data-lucide="shield" class="w-6 h-6"></i>
+          <div>
+            <h4 class="text-xl font-semibold">Global AI Policy</h4>
+            <p class="text-xs text-gray-500">Controls G1–G4</p>
+          </div>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">Active</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="mt-8 grid md:grid-cols-4 gap-3" id="ai-controls-catalog">
+        <div class="rounded-2xl bg-gray-50 p-4 border border-gray-100">
+          <div class="flex items-center justify-between">
+            <div class="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 text-[11px] flex items-center justify-center font-semibold" aria-label="Control G1">G1</div>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">Block</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 mt-3">Approved AI Tools</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-4 border border-gray-100">
+          <div class="flex items-center justify-between">
+            <div class="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 text-[11px] flex items-center justify-center font-semibold" aria-label="Control G2">G2</div>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">Isolate</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 mt-3">AI Network Control</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-4 border border-gray-100">
+          <div class="flex items-center justify-between">
+            <div class="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 text-[11px] flex items-center justify-center font-semibold" aria-label="Control G3">G3</div>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">Alert</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 mt-3">Model Verification</p>
+        </div>
+        <div class="rounded-2xl bg-gray-50 p-4 border border-gray-100">
+          <div class="flex items-center justify-between">
+            <div class="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 text-[11px] flex items-center justify-center font-semibold" aria-label="Control G4">G4</div>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">Block</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 mt-3">Config Integrity</p>
+        </div>
+      </div>
+
+      <!-- Compact Heatmap -->
+      <div class="mt-8" aria-label="AI controls heatmap">
+        <div class="flex items-center gap-4 text-xs text-gray-500 mb-3">
+          <span class="font-medium text-gray-700">AI Controls Heatmap</span>
+          <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-[3px] bg-green-500"></span> Allowed</span>
+          <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-[3px] bg-yellow-400"></span> Alert</span>
+          <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-[3px] bg-red-500"></span> Blocked</span>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-gray-100" role="table">
+          <div class="grid grid-cols-5 text-sm" role="rowgroup">
+            <div class="bg-gray-50 p-3 font-medium" role="columnheader">Control</div>
+            <div class="bg-gray-50 p-3 font-medium" role="columnheader">AI Apps</div>
+            <div class="bg-gray-50 p-3 font-medium" role="columnheader">MCP</div>
+            <div class="bg-gray-50 p-3 font-medium" role="columnheader">Models</div>
+            <div class="bg-gray-50 p-3 font-medium" role="columnheader">Browsers</div>
+            <!-- Rows -->
+            <div class="contents" role="row">
+              <div class="p-3 text-gray-600" role="rowheader">G1 · Approved AI Tools</div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-green-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+            </div>
+            <div class="contents" role="row">
+              <div class="p-3 text-gray-600" role="rowheader">G2 · AI Network Control</div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+            </div>
+            <div class="contents" role="row">
+              <div class="p-3 text-gray-600" role="rowheader">G3 · Model Verification</div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-green-500"></span></div>
+            </div>
+            <div class="contents" role="row">
+              <div class="p-3 text-gray-600" role="rowheader">G4 · Config Integrity</div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-red-500"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+              <div class="p-3" role="cell"><span class="inline-block h-3 w-3 rounded-[3px] bg-yellow-400"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coverage bar -->
+      <div class="mt-8">
+        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div class="expand h-2 bg-gray-900" data-reveal-width="78%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-gray-500 mt-2">
+          <span>Coverage 78%</span>
+          <span>Last sync · 2m ago</span>
+        </div>
+      </div>
+
+      <!-- Overrides hint -->
+      <div class="mt-6 rounded-2xl border bg-gray-50 p-4">
+        <p class="text-xs text-gray-600">Need an exception? Apply an override to a label or device — e.g., <span class="font-medium">Block DeepSeek for India</span>, <span class="font-medium">Allow DeepSeek for China</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Threat Intelligence Center — rollback to lucide -->
+  <section class="mx-auto max-w-6xl px-6 py-20">
+    <div class="rounded-3xl border border-gray-100 p-10 bg-white shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-8">
+        <h3 class="text-3xl font-semibold">AI Threat Intelligence Center</h3>
+        <span class="text-xs text-gray-500">Exclusive research &amp; signals</span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal rounded-2xl border border-gray-100 p-6 bg-gray-50">
+          <div class="flex items-center gap-2 mb-3"><i data-lucide="bug" class="w-5 h-5"></i><span class="font-semibold">Recent Threats</span></div>
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li>Stealth DOM prompts in note apps</li>
+            <li>Clipboard-hijack system messages</li>
+            <li>GGUF header spoofing</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-2xl border border-gray-100 p-6 bg-gray-50">
+          <div class="flex items-center gap-2 mb-3"><i data-lucide="database" class="w-5 h-5"></i><span class="font-semibold">Signals</span></div>
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li>AI domain heuristics &amp; ASN list</li>
+            <li>Secrets &amp; model integrity rules</li>
+            <li>Prompt-pattern detectors</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-2xl border border-gray-100 p-6 bg-gray-50">
+          <div class="flex items-center gap-2 mb-3"><i data-lucide="building-2" class="w-5 h-5"></i><span class="font-semibold">Case Study</span></div>
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li>Google Gemini GitHub Repo Prompt Injection — exfiltrated secrets &amp; auto-created branches (controlled red-team).</li>
+          </ul>
+          <a class="text-sm mt-3 inline-block underline underline-offset-4 text-gray-900" href="#">Read more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance (unchanged icons) -->
+  <section id="compliance" class="mx-auto max-w-6xl px-6 py-24">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="reveal md:col-span-2 rounded-3xl border border-gray-100 p-8 bg-white shadow-sm">
+        <h3 class="text-3xl font-semibold mb-4">Compliance, made exportable</h3>
+        <p class="text-gray-600 mb-6">Map controls to standards. Generate evidence. Export a clean PDF.</p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="rounded-2xl bg-gray-50 p-6">
+            <h4 class="font-semibold mb-1">Framework Mapping</h4>
+            <ul class="text-[13.5px] text-gray-700 space-y-2">
+              <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#1E3A8A"/><g fill="#FBBF24" transform="translate(12 8)"><g id="s" transform="rotate(18)"><circle r=".9" transform="translate(0,-5.5)"/></g><use href="#s" transform="rotate(36)"/><use href="#s" transform="rotate(72)"/><use href="#s" transform="rotate(108)"/><use href="#s" transform="rotate(144)"/><use href="#s" transform="rotate(180)"/><use href="#s" transform="rotate(216)"/><use href="#s" transform="rotate(252)"/><use href="#s" transform="rotate(288)"/><use href="#s" transform="rotate(324)"/></g></svg><span>EU AI Act</span></li>
+              <li class="flex items-center gap-2"><svg width="20" height="16" viewBox="0 0 84 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" focusable="false">
+  <rect x="0.5" y="0.5" width="83" height="31" rx="4" fill="#111" stroke="#111"/>
+  <rect x="10" y="8" width="64" height="4" fill="#fff"/>
+  <rect x="10" y="14" width="48" height="4" fill="#fff"/>
+  <rect x="10" y="20" width="56" height="4" fill="#fff"/>
+</svg><span>SAIF</span></li>
+              <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#F59E0B"/><rect y="5.33" width="24" height="5.34" fill="#FFFFFF"/><rect y="10.67" width="24" height="5.33" fill="#16A34A"/><circle cx="12" cy="8" r="2" fill="#1D4ED8"/></svg><span>India AI Guidelines</span></li>
+              <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="black" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a20 20 0 000 18M12 3a20 20 0 010 18"/></svg><span>ISO/IEC 42001</span></li>
+            </ul>
+          </div>
+          <div class="rounded-2xl bg-gray-50 p-6">
+            <h4 class="font-semibold mb-1">Evidence &amp; Reports</h4>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>Automated control status &amp; rationale</li>
+              <li>Device-level event summaries</li>
+              <li>CSV/JSON export, PDF snapshot</li>
+              <li>Posture history (point-in-time)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="reveal rounded-3xl border border-gray-100 p-8 bg-white shadow-sm flex flex-col items-center justify-center">
+        <svg class="icon-xl mb-3" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="8" y="6" width="32" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M14 14h20M14 20h20M14 26h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <h4 class="text-xl font-semibold mb-1">Compliance Report</h4>
+        <p class="text-gray-500 text-sm text-center mb-4">Download a PDF summary of your laptop.bot posture.</p>
+        <button class="px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 transition">Download PDF</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="mx-auto max-w-6xl px-6 py-24">
+    <h3 class="reveal text-4xl font-semibold text-center mb-2">Simple, transparent pricing</h3>
+    <p class="reveal text-gray-600 text-center mb-12">Start free. Scale securely.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="reveal border border-gray-100 rounded-3xl p-8 hover:shadow-sm bg-white">
+        <h4 class="text-2xl font-semibold mb-2">Developer</h4>
+        <p class="text-4xl font-bold mb-4">Free</p>
+        <ul class="text-gray-600 space-y-2 mb-6 text-sm">
+          <li>• 1 Device</li>
+          <li>• Local Logs</li>
+          <li>• Community Support</li>
+        </ul>
+<!--        <button class="px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 transition">Get Started</button>-->
+      </div>
+      <div class="reveal border border-gray-100 rounded-3xl p-8 hover:shadow-sm bg-white">
+        <h4 class="text-2xl font-semibold mb-2">Team</h4>
+        <p class="text-4xl font-bold mb-4">$99/mo</p>
+        <ul class="text-gray-600 space-y-2 mb-6 text-sm">
+          <li>• Up to 100 Devices</li>
+          <li>• Policy Overrides</li>
+          <li>• Email Alerts</li>
+        </ul>
+<!--        <button class="px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 transition">Get Started</button>-->
+      </div>
+      <div class="reveal border border-gray-100 rounded-3xl p-8 hover:shadow-sm bg-white">
+        <h4 class="text-2xl font-semibold mb-2">Enterprise</h4>
+        <p class="text-4xl font-bold mb-4">Contact Us</p>
+        <ul class="text-gray-600 space-y-2 mb-6 text-sm">
+          <li>• Unlimited Devices</li>
+          <li>• Compliance Reports</li>
+          <li>• SAML/SSO</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100">
+    <div class="mx-auto max-w-6xl px-6 py-10 text-sm text-gray-500 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2025 laptop.bot</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-gray-700">Privacy</a>
+        <a href="#" class="hover:text-gray-700">Terms</a>
+        <a href="#" class="hover:text-gray-700">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide (icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    try { document.body.classList.add('js-ready'); } catch(e) {}
+
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+
+    // Reveal on view + coverage bar animation
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          const widthTarget = e.target.querySelector('[data-reveal-width]');
+          if (widthTarget && !widthTarget.dataset._expanded) {
+            widthTarget.style.width = widthTarget.getAttribute('data-reveal-width');
+            widthTarget.dataset._expanded = '1';
+          }
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Coverage bars
+    const widthEls = Array.from(document.querySelectorAll('[data-reveal-width]'));
+    if ('IntersectionObserver' in window) {
+      const ioW = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            const target = e.target;
+            if (!target.dataset._expanded) {
+              requestAnimationFrame(() => {
+                target.style.width = target.getAttribute('data-reveal-width');
+                target.dataset._expanded = '1';
+              });
+            }
+            ioW.unobserve(target);
+          }
+        }
+      }, { threshold: 0.1 });
+      widthEls.forEach(el => ioW.observe(el));
+    } else {
+      widthEls.forEach(el => el.style.width = el.getAttribute('data-reveal-width'));
+    }
+
+    setTimeout(() => document.body.classList.add('show-hint'), 80);
+    setTimeout(() => document.body.classList.remove('show-hint'), 2000);
+
+    // Dev smoke tests
+    console.assert(document.querySelector('section#governance'), 'Governance section missing');
+    console.assert(document.querySelector('section#compliance'), 'Compliance section missing');
+    console.assert(document.querySelector('section#pricing'), 'Pricing section missing');
+    console.assert(document.querySelector('#ai-controls-catalog'), 'AI Controls Catalog missing');
+    console.assert(document.querySelector('[aria-label="AI controls heatmap"]'), 'AI Controls Heatmap missing');
+    console.assert(document.querySelector('section#coverage'), 'Coverage section missing');
+    console.assert((document.body.textContent || '').toLowerCase().includes('laptop.bot'), 'Brand text missing');
+  </script>
+</body>
+</html>
+
