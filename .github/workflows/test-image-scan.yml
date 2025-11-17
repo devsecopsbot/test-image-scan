@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: devsecopsbot/image-scan@main
         with:
-          image: nginx:latest
+          image:  docker.io/library/eclipse-temurin:11
           post-url: ${{ secrets.POST_URL }}
           auth-token: ${{ secrets.AUTH_TOKEN }}
           server-token: ${{ secrets.SERVER_TOKEN }}
