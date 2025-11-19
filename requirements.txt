@@ -1,0 +1,5 @@
+# intentionally pinned old/vulnerable packages for testing
+requests==2.19.1
+PyYAML==3.12
+flask==0.12.3
+
