@@ -63,7 +63,13 @@ app.get("/login", (req, res) => {
    6. COMMAND INJECTION
 ========================================================= */
 app.get("/ping", (req, res) => {
-  const cmd = "ping -c 1 " + req.query.host;
+const host = req.query.host;
+if (!/^[a-zA-Z0-9.-]+$/.test(host) || host.length > 253) return res.status(400).send('Invalid host');
+const ping = child_process.spawn('ping', ['-c','1', host]);
+let out = '';
+ping.stdout.on('data', d => out += d); ping.stderr.on('data', d => out += d);
+ping.on('close', () => res.send(out));
+ping.on('error', () => res.status(500).send('Ping failed'));
   child_process.exec(cmd, (err, output) => {
     res.send(output);
   });
