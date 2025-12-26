@@ -81,7 +81,13 @@ ping.on('error', () => res.status(500).send('Ping failed'));
    7. PATH TRAVERSAL
 ========================================================= */
 app.get("/read", (req, res) => {
-  const filePath = path.join(__dirname, req.query.file);
+app.get("/read", (req, res) => {
+  const baseDir = path.join(__dirname, 'files');
+  const requested = path.normalize(String(req.query.file || ''));
+  if (requested.includes('..') || path.isAbsolute(requested)) return res.status(400).send('Invalid file');
+  const filePath = path.resolve(baseDir, requested);
+  if (!filePath.startsWith(path.resolve(baseDir) + path.sep)) return res.status(400).send('Invalid file');
+  res.send(fs.readFileSync(filePath, "utf8")); });
   res.send(fs.readFileSync(filePath, "utf8"));
 });
 
