@@ -105,7 +105,14 @@ app.get("/calc", (req, res) => {
 /* =========================================================
    10. OPEN REDIRECT
 ========================================================= */
+const allowedRedirects = ['/home','/dashboard','https://www.example.com/page1'];
 app.get("/redirect", (req, res) => {
+  const url = (req.query.url || '').toString();
+  const decoded = decodeURIComponent(url);
+  // Allow only same-origin relative paths or explicitly allowlisted absolute URLs
+  if (decoded.startsWith('/') || allowedRedirects.includes(decoded)) return res.redirect(decoded);
+  res.status(400).send('Invalid redirect URL');
+});
   res.redirect(req.query.url);
 });
 
