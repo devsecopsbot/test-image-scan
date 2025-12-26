@@ -156,7 +156,14 @@ app.post("/xml", (req, res) => {
   const parser = new xml2js.Parser({ explicitArray: false });
   parser.parseString(req.body.xml, (err, result) => {
     res.json(result);
-  });
+app.post("/jwt", (req, res) => {
+  try {
+    const decoded = jwt.verify(req.body.token, JWT_SECRET, { algorithms: ["HS256"] });
+    res.json(decoded);
+  } catch (err) {
+    res.status(401).send("Invalid token");
+  }
+});
 });
 
 /* =========================================================
