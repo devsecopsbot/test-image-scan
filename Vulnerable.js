@@ -101,7 +101,13 @@ const obj = (() => {
 /* =========================================================
    9. EVAL / CODE INJECTION
 ========================================================= */
-app.get("/calc", (req, res) => {
+const expr = (req.query.expr || '').replace(/\s+/g,''); if(!/^[0-9+\-*/().]+$/.test(expr)) return res.status(400).send('Invalid expression');
+const tokens = expr.match(/\d+(\.\d+)?|[+\-*/()]/g) || [];
+const output = []; const ops = []; const prec = { '+': 1, '-': 1, '*': 2, '/': 2 };
+tokens.forEach(t=>{ if(/\d/.test(t)) output.push(parseFloat(t)); else if('+-*/'.includes(t)){ while(ops.length && ops[ops.length-1] !== '(' && prec[ops[ops.length-1]] >= prec[t]) output.push(ops.pop()); ops.push(t); } else if(t === '(') ops.push(t); else if(t === ')'){ while(ops.length && ops[ops.length-1] !== '(') output.push(ops.pop()); ops.pop(); } });
+while(ops.length) output.push(ops.pop());
+const valStack = []; output.forEach(tok=>{ if(typeof tok === 'number') valStack.push(tok); else { const b = valStack.pop(); const a = valStack.pop(); valStack.push(tok === '+' ? a + b : tok === '-' ? a - b : tok === '*' ? a * b : a / b); } });
+const result = valStack[0]; res.send('Result: ' + result);
   const expr = String(req.query.expr || "");
   if (!/^[0-9+\-*/().\s]+$/.test(expr)) return res.status(400).send("Invalid expression");
   try { const result = Function('"use strict";return ('+expr+')')(); return res.send("Result: " + result); }
