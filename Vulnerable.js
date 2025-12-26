@@ -93,6 +93,11 @@ const obj = (() => {
    9. EVAL / CODE INJECTION
 ========================================================= */
 app.get("/calc", (req, res) => {
+  const expr = String(req.query.expr || "");
+  if (!/^[0-9+\-*/().\s]+$/.test(expr)) return res.status(400).send("Invalid expression");
+  try { const result = Function('"use strict";return ('+expr+')')(); return res.send("Result: " + result); }
+  catch (e) { return res.status(400).send("Evaluation error"); }
+});
   const result = eval(req.query.expr);
   res.send("Result: " + result);
 });
