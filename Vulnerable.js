@@ -77,7 +77,9 @@ app.get("/read", (req, res) => {
 /* =========================================================
    8. INSECURE DESERIALIZATION
 ========================================================= */
-app.post("/deserialize", (req, res) => {
+const obj = (() => {
+  try { return JSON.parse(req.body.data); } catch (err) { return {}; }
+})();
   try {
     const obj = JSON.parse(req.body.data); if (typeof obj !== 'object' || obj === null) throw new Error('Invalid payload');
     res.json(obj);
