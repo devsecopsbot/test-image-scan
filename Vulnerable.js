@@ -119,7 +119,13 @@ app.get("/redirect", (req, res) => {
 /* =========================================================
    11. SERVER-SIDE REQUEST FORGERY (SSRF)
 ========================================================= */
-app.get("/fetch", async (req, res) => {
+const allowedHosts = new Set(["example.com","api.example.com"]);
+try {
+  const url = new URL(req.query.url);
+  if (!["http:","https:"].includes(url.protocol) || !allowedHosts.has(url.hostname)) throw new Error("disallowed");
+  const response = await axios.get(url.toString());
+  res.send(response.data);
+} catch (e) { res.status(400).send("Invalid or disallowed URL"); }
   const response = await axios.get(req.query.url);
   res.send(response.data);
 });
