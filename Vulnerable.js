@@ -99,7 +99,11 @@ const obj = (() => {
 });
 
 /* =========================================================
-   9. EVAL / CODE INJECTION
+const expr = String(req.query.expr || '');
+if (!/^[0-9+\-*/%().\s]+$/.test(expr)) return res.status(400).send('Invalid expression');
+let result;
+try { result = Function('"use strict"; return (' + expr + ')')(); } catch (e) { return res.status(400).send('Error evaluating expression'); }
+res.send('Result: ' + result);
 ========================================================= */
 const expr = (req.query.expr || '').replace(/\s+/g,''); if(!/^[0-9+\-*/().]+$/.test(expr)) return res.status(400).send('Invalid expression');
 const tokens = expr.match(/\d+(\.\d+)?|[+\-*/()]/g) || [];
