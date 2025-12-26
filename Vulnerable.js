@@ -29,6 +29,8 @@ const JWT_SECRET = "hardcoded_jwt_secret";
    2. INSECURE RANDOMNESS
 ========================================================= */
 function generateToken() {
+  return crypto.randomBytes(16).toString('hex');
+}
   return Math.random().toString(36).substring(2);
 }
 
