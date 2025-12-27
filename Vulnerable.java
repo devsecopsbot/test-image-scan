@@ -11,7 +11,10 @@ public class VulnerableApp {
     }
 
     // 2) SQL Injection via string concatenation (semgrep: "sql-injection")
-    public ResultSet queryDatabase(Connection conn, String userId) throws SQLException {
+PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+pstmt.setString(1, userId);
+ResultSet rs = pstmt.executeQuery();
+return rs;
         String sql = "SELECT * FROM users WHERE id = '" + userId + "'";
         Statement stmt = conn.createStatement();
         return stmt.executeQuery(sql);
