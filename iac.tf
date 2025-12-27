@@ -7,6 +7,8 @@ resource "aws_s3_bucket" "demo_bucket" {
   acl    = "public-read"
 
   versioning {
+    enabled = true
+  }
     enabled = false
   }
 
