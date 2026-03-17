@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.sql.*;
 import javax.net.ssl.*;
-
+// ok
 public class VulnerableApp {
 
     // 1) Hardcoded credentials (semgrep: "hardcoded-password")
